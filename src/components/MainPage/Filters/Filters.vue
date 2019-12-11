@@ -154,7 +154,21 @@ export default {
 .display{
   display: none;
 }
-@media(min-width: 1025px) and (max-width: 1260px){
+@media(min-width: 1248px) and (max-width: 1260px){
+  .listItems{
+    height: auto;
+    padding-top: (66-39)/2px;
+    padding-bottom: (66-39)/2px;
+    &>.item:nth-child(4){
+      margin-right: 1%;
+    }
+    &>.item:last-child{
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+  }
+}
+@media(min-width: 1025px) and (max-width: 1247px){
   .listItems{
     height: auto;
     padding-top: (66-39)/2px;
@@ -242,7 +256,7 @@ export default {
   .listItems{
     flex-direction: column;
     justify-content: center;
-    width: 79%;
+    width: 90%;
     height: auto;
     padding-top: (66-39)/2px;
     padding-bottom: (66-39)/2px;

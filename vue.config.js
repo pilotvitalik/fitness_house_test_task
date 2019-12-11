@@ -1,4 +1,5 @@
 module.exports = {
   outputDir: 'public',
-  productionSourceMap: false
+  productionSourceMap: false,
+  lintOnSave: false
 }

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <div class='header'>
     <nav>
       <h2>Fitness House Market</h2>
       <div class='box'>
@@ -8,7 +8,7 @@
         <p>Корзина</p>
       </div>
     </nav>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -26,7 +26,7 @@ export default {
 @backgroundHeader: #2d5580;
 @mainColor: #fff;
 @boxColor: #a0afbf;
-header{
+.header{
   display: block;
   position: relative;
   width: 100%;
@@ -107,7 +107,7 @@ header{
   }
 }
 @media(min-width: 769px) and (max-width: 1024px){
-header{
+.header{
   width: 100%;
   height: 61px;
   nav{
@@ -130,7 +130,7 @@ header{
 }
 }
 @media(min-width: 641px) and (max-width: 768px){
-header{
+.header{
   width: 100%;
   height: 61px;
   nav{
@@ -153,7 +153,7 @@ header{
 }
 }
 @media(max-width: 450px){
-header{
+.header{
   width: 100%;
   height: 61px;
   nav{
@@ -174,7 +174,7 @@ header{
 }
 }
 @media(max-width: 360px){
-header{
+.header{
   width: 100%;
   height: 61px;
   nav{
