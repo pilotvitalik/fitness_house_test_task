@@ -68,12 +68,12 @@ header{
       span:first-child{
         display: inline-block;
         width: 27px;
-        height: 14px;
+        height: 13px;
         margin-left: 13px;
         margin-right: 7px;
-        padding-top: 2px;
+        padding-top: 3px;
         color: @backgroundHeader;
-        font-size: 15px;
+        font-size: 12px;
         font-weight: 400;
         line-height: 100%;
         letter-spacing: 0.38px;
@@ -105,6 +105,52 @@ header{
       cursor: pointer;
     }
   }
+}
+@media(min-width: 769px) and (max-width: 1024px){
+header{
+  width: 100%;
+  height: 61px;
+  nav{
+    justify-content: center;
+    h2{
+      width: 210px;
+      height: 18px;
+      margin-left: 0;
+      line-height: 18px;
+      text-align: left;
+    }
+    .box{
+      width: 134px;
+      height: 33px;
+      margin-left: 380px;
+      margin-right: 0;
+      margin-top: -1px;
+    }
+  }
+}
+}
+@media(min-width: 641px) and (max-width: 768px){
+header{
+  width: 100%;
+  height: 61px;
+  nav{
+    justify-content: center;
+    h2{
+      width: 210px;
+      height: 18px;
+      margin-left: 0;
+      line-height: 18px;
+      text-align: left;
+    }
+    .box{
+      width: 134px;
+      height: 33px;
+      margin-left: 258px;
+      margin-right: 0;
+      margin-top: -1px;
+    }
+  }
+}
 }
 @media(max-width: 450px){
 header{

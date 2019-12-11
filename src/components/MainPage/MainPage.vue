@@ -1,13 +1,18 @@
 <template>
-  <Navbar/>
+  <div id='mainPage'>
+    <Navbar/>
+    <Filters/>
+  </div>
 </template>
 
 <script>
 import Navbar from './Navbar/Navbar.vue';
+import Filters from './Filters/Filters.vue';
 
 export default {
   components: {
     Navbar,
+    Filters,
   },
   data() {
     return {
@@ -19,7 +24,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-p{
-  color: red;
-}
 </style>
