@@ -90,6 +90,7 @@ export const store = new Vuex.Store({
       })
       categories = categories.map((item) => {
         return {
+          isShow: false,
           title: item,
           value: [],
         }
@@ -109,6 +110,27 @@ export const store = new Vuex.Store({
           })
         })
       })
+    },
+    // show sub menu filters
+    showSubMenu: (state, payload) => {
+      console.log(payload)
+      let arr = '';
+      arr = state.categories.map((item) => {
+        if (item.title === payload){
+          item.isShow = !item.isShow;
+        } else {
+          item.isShow = false;
+        }
+      })
+    },
+    test: (state) => {
+      console.log('Hello')
+      /*let arr = '';
+      arr = state.categories.map((item) => {
+        if (item.title === payload){
+          item.isShow = !item.isShow;
+        }
+      })*/
     },
   },
   actions: {
@@ -153,6 +175,13 @@ export const store = new Vuex.Store({
           setTimeout(request, 500)
         }
       }, 800);
-    }
+    },
+    // show sub menu filters
+    showSubMenu: ({ commit }, payload) => {
+      commit('showSubMenu', payload);
+    },
+    test: ({ commit }) => {
+      commit('test');
+    },
   }
 })

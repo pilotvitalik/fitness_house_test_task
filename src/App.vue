@@ -15,7 +15,7 @@ export default {
   methods: {
     initialLoad() {
       this.$store.dispatch('initialLoad');
-    }
+    },
   },
   created() {
     this.initialLoad();

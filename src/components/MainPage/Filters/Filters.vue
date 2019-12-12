@@ -1,17 +1,24 @@
 <template>
   <ul class='listItems'>
       <li class='item' v-for='cat in filters'>
-        <p class='btn'>{{cat.title}}</p>
-        <ul class='subMenu'>
-          <li v-for='subCat in cat.value'>{{subCat}}</li>
-        </ul>
-        <span></span>
+        <p class='btn' @click='showSubMenu(cat.title)'>{{cat.title}}</p>
+        <transition name='SubMenu'>
+          <Submenu :value='cat.value' v-if='cat.isShow'/>
+        </transition>
+        <button @click='showSubMenu(cat.title)'>
+          <span></span>
+        </button>
       </li>
   </ul>
 </template>
 
 <script>
+import Submenu from './Submenu/Submenu.vue';
+
 export default {
+  components: {
+    Submenu,
+  },
   data() {
     return {
     };
@@ -20,6 +27,14 @@ export default {
     filters() {
       return this.$store.state.categories;
     },
+    show() {
+      return this.$store.state.show;
+    },
+  },
+  methods: {
+    showSubMenu(title) {
+      this.$store.dispatch('showSubMenu', title);
+    }
   },
 };
 </script>
@@ -30,6 +45,18 @@ export default {
 @borderSubMenu: #7c9fd1;
 @itemSelect: #2596fa;
 @back: #fff;
+
+.SubMenu-enter-active {
+  transition: all .3s ease;
+}
+.SubMenu-leave-active {
+  transition: all .8s ease;
+}
+.SubMenu-enter, .SubMenu-leave-to{
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
 .listItems{
   display: flex;
   flex-direction: row;
@@ -53,6 +80,7 @@ export default {
     border-radius: 4px;
     background: @itemColor;
     color: @itemColorText;
+    z-index: 2;
     p{
       display: inline-block;
       width: 80%;
@@ -64,50 +92,33 @@ export default {
       line-height: 39px;
       letter-spacing: 0.1px;
     }
-    .subMenu{
-      display: none;
+    &>button{
+      display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      position: absolute;
-      width: 188px;
-      height: auto;
-      padding-top: 4px;
-      padding-bottom: 4px;
-      top: 40px;
-      border: 1px solid @borderSubMenu;
-      border-radius: 4px;
-      z-index: 100;
-      background: @back;
-      li{
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      width: 190-166px;
+      height: 39px;
+      border: none;
+      outline: none;
+      border-radius: 0 4px 4px 0;
+      background: @itemColor;
+      &>span{
         display: inline-block;
-        width: 174px;
-        height: 13px;
-        padding-left: 14px;
-        color: @itemColorText;
-        font-size: 13px;
-        font-weight: 400;
-        line-height: 13px;
-        letter-spacing: 0.1px;
-      }
-      li:not(:first-child){
-        margin-top: 5px;
-      }
-      li:hover{
-        cursor: pointer;
-        background: @itemSelect;
+        position: relative;
+        width: 4.5px;
+        height: 4.5px;
+        margin-left: auto;
+        margin-right: 10px;
+        margin-top: -4px;
+        border: solid @itemColorText;
+        border-width: 0 1px 1px 0;
+        transform: rotate(43deg);
       }
     }
-    &>span{
-      display: inline-block;
-      position: relative;
-      width: 4.5px;
-      height: 4.5px;
-      margin-left: auto;
-      margin-right: 10px;
-      margin-top: -4px;
-      border: solid @itemColorText;
-      border-width: 0 1px 1px 0;
-      transform: rotate(43deg);
+    &>button:hover{
+      cursor: pointer;
     }
   }
   &>.item:first-child,

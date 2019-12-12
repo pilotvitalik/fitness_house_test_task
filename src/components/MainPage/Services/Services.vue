@@ -1,5 +1,5 @@
 <template>
-  <div class='main'>
+  <div class='main' @click="showSubMenu('закрыть фильтр')">
     <ul>
       <li class='itemServices' v-for='item in listServices'>
         <img :src='item.url'>
@@ -29,7 +29,12 @@ export default {
     listServices() {
       return this.$store.state.commonArray;
     }
-  }
+  },
+  methods: {
+    showSubMenu(close){
+      this.$store.dispatch('showSubMenu', close);
+    }
+  },
 };
 </script>
 
@@ -141,7 +146,7 @@ export default {
       transform: scale(1.12, 1.12);
       transition: all .4s ease;
       cursor: pointer;
-      z-index: 100;
+      z-index: 0;
       box-shadow: unset;
     }
   }
