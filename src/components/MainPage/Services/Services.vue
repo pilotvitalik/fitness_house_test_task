@@ -109,15 +109,15 @@ export default {
           position: relative;
           margin-top: 29px; 
           margin-left: 19px;
-          width: 250px;
+          width: 270px;
           height: 25px;
           button{
             display: block;
             position: relative;
             width: auto;
-            height: 21px;
+            height: 22px;
             margin-right: 7px;
-            padding-top: 1px;
+            padding-top: 0px;
             padding-left: 9px;
             padding-right: 9px;
             color: @descriptTextColor;

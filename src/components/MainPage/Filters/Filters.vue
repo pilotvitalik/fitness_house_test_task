@@ -1,48 +1,9 @@
 <template>
   <ul class='listItems'>
-      <li class='item'>
-        <p class='btn'>Количество занятий</p>
+      <li class='item' v-for='cat in filters'>
+        <p class='btn'>{{cat.title}}</p>
         <ul class='subMenu'>
-          <li>Количество занятий</li>
-          <li>100 занятий</li>
-          <li>18 занятий</li>
-          <li>36 занятий</li>
-          <li>разовое посещение</li>
-        </ul>
-        <span></span>
-      </li>
-      <li class='item'>
-        <p class='btn'>Срок действия</p>
-        <ul class='subMenu'>
-          <li>Срок действия</li>
-          <li>1 год</li>
-          <li>6 месяцев</li>
-        </ul>
-        <span></span>
-      </li>
-      <li class='item'>
-        <p class='btn'>Время посещения</p>
-        <ul class='subMenu'>
-          <li>Время посещения</li>
-          <li>утро</li>
-          <li>вечер</li>
-        </ul>
-        <span></span>
-      </li>
-      <li class='item'>
-        <p class='btn'>Тип секции</p>
-        <ul class='subMenu'>
-          <li>Тип секции</li>
-          <li>вода</li>
-        </ul>
-        <span></span>
-      </li>
-      <li class='item'>
-        <p class='btn'>Категория тренера</p>
-        <ul class='subMenu'>
-          <li>Категория тренера</li>
-          <li>мастер</li>
-          <li>прфои</li>
+          <li v-for='subCat in cat.value'>{{subCat}}</li>
         </ul>
         <span></span>
       </li>
@@ -55,6 +16,11 @@ export default {
     return {
     };
   },
+  computed: {
+    filters() {
+      return this.$store.state.categories;
+    },
+  },
 };
 </script>
 
@@ -63,6 +29,7 @@ export default {
 @itemColorText: #4a5667;
 @borderSubMenu: #7c9fd1;
 @itemSelect: #2596fa;
+@back: #fff;
 .listItems{
   display: flex;
   flex-direction: row;
@@ -102,16 +69,18 @@ export default {
       flex-direction: column;
       justify-content: space-between;
       position: absolute;
-      width: 100%;
+      width: 188px;
       height: auto;
       padding-top: 4px;
       padding-bottom: 4px;
       top: 40px;
       border: 1px solid @borderSubMenu;
       border-radius: 4px;
+      z-index: 100;
+      background: @back;
       li{
         display: inline-block;
-        width: 176px;
+        width: 174px;
         height: 13px;
         padding-left: 14px;
         color: @itemColorText;
@@ -152,7 +121,7 @@ export default {
   }
 }
 .display{
-  display: none;
+  display: flex;
 }
 @media(min-width: 1248px) and (max-width: 1260px){
   .listItems{

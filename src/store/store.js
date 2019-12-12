@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     api: 'https://fitnesshouse-ba47f.firebaseio.com/services.json',
+    // cards
     listServices: '',
     listImages: [],
     urlImages: [],
@@ -16,6 +17,8 @@ export const store = new Vuex.Store({
     lengthListImages: '',
     lengthListServices: '',
     commonArray: '',
+    // filter
+    categories: [],  // name array of categories
   },
   mutations: {
     // Receive services.json
@@ -30,7 +33,7 @@ export const store = new Vuex.Store({
       }, (response) => {
       })
     },
-    // Receive list of images
+    // Receive list of imagesКатегория тренера
     receiveImg: (state) => {
       storageRef.child('img').listAll().then((response) => {
         if (response.items.length !== 0) {
@@ -59,6 +62,10 @@ export const store = new Vuex.Store({
     // merge images and services arr
     mergeImgServ: (state) => {
       state.listServices.forEach((service) => {
+        service.description = service.description.slice(0, 100).trim();
+        if (service.description.length >= 99) {
+          service.description = `${service.description}...`;
+        }
         state.urlImages.forEach((img) => {
           if (service.alias === img.name) {
             service.url = img.url;
@@ -66,6 +73,42 @@ export const store = new Vuex.Store({
         })
       })
       state.commonArray = state.listServices
+    },
+    // create list of categories filter
+    createCatFilter: (state) => {
+      let tmpCat = [];
+      tmpCat = state.listServices.map((item) => {
+        return item.properties
+      })
+      let categories = [];
+      tmpCat.forEach((item) => {
+        item.forEach((subItem) => {
+          if (!categories.includes(subItem.title)) {
+            categories.push(subItem.title);
+          }
+        })
+      })
+      categories = categories.map((item) => {
+        return {
+          title: item,
+          value: [],
+        }
+      })
+      state.categories = categories;
+      tmpCat.forEach((item) => {
+        item.forEach((subItem) => {
+          state.categories.forEach((i) => {
+            if (subItem.title === i.title) {
+              if (!i.value.includes(subItem.title)) {
+                i.value.push(subItem.title);
+              }
+              if (!i.value.includes(subItem.value)) {
+                i.value.push(subItem.value);
+              }
+            }
+          })
+        })
+      })
     },
   },
   actions: {
@@ -76,11 +119,12 @@ export const store = new Vuex.Store({
       const statusReceiveDataAPI = setTimeout(function request() {
         if (state.statusDataAPI === true) {
           clearTimeout(statusReceiveDataAPI);
+          commit('createCatFilter');
         } else {
           commit('receiveData');
-          setTimeout(request, 3000)
+          setTimeout(request, 500)
         }
-      }, 1000);
+      }, 500);
       // repeat function receiveImg, if status = false
       const statusReceiveImgAPI = setTimeout(function request() {
         if (state.lengthListImages === state.lengthListServices) {
@@ -88,27 +132,27 @@ export const store = new Vuex.Store({
           state.statusImagesAPI = true;
         } else {
           commit('receiveImg');
-          setTimeout(request, 3000)
+          setTimeout(request, 500)
         }
-      }, 1000);
+      }, 500);
       // receive url images
       const statusImagesAPI = setTimeout(function request() {
         if (state.statusImagesAPI === true) {
           commit('receiveUrlImg');
           clearTimeout(statusImagesAPI);
         } else {
-          setTimeout(request, 3000)
+          setTimeout(request, 500)
         }
-      }, 1000);
+      }, 500);
       // merge images and services arr
       const statusUrlImages = setTimeout(function request() {
         if (state.statusUrlImages === true) {
           commit('mergeImgServ');
           clearTimeout(statusUrlImages);
         } else {
-          setTimeout(request, 3000)
+          setTimeout(request, 500)
         }
-      }, 1400);
+      }, 800);
     }
   }
 })
