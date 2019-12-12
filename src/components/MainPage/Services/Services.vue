@@ -1,98 +1,17 @@
 <template>
   <div class='main'>
     <ul>
-      <li class='itemServices'>
-        <img src='../../../assets/img/multicart.jpeg'>
+      <li class='itemServices' v-for='item in listServices'>
+        <img :src='item.url'>
         <div class='descript'>
           <h5>
-            Мультикарта Fitness House
+            {{ item.title }}
           </h5>
           <a>
-            Абонемент на посещение любого спортивного клуба сети Fitness House в течении 1 года но не более 100...
+            {{ item.description }}
           </a>
           <form>
-            <button>#100 занятий</button>
-            <button>#1 год</button>
-          </form>
-        </div>
-      </li>
-      <li class='itemServices'>
-        <img src='../../../assets/img/abonement.jpg'>
-        <div class='descript'>
-          <h5>
-            Абонемент Fitness House
-          </h5>
-          <a>
-            Абонемент на посещение одного спортивного клуба сети Fitness House в течении 1 года но не более 100...
-          </a>
-          <form>
-            <button>#100 занятий</button>
-            <button>#1 год</button>
-            <button>#утро</button>
-          </form>
-        </div>
-      </li>
-      <li class='itemServices'>
-        <img src='../../../assets/img/child.jpg'>
-        <div class='descript'>
-          <h5>
-            Детская секция вода
-          </h5>
-          <a>
-            Абонемент на посещение определенного количества занятий детской секции в одном из спортивных клубов...
-          </a>
-          <form>
-            <button>#18 занятий</button>
-            <button>#6 месяцев</button>
-            <button>#вода</button>
-          </form>
-        </div>
-      </li>
-      <li class='itemServices'>
-        <img src='../../../assets/img/personalTraning.jpg'>
-        <div class='descript'>
-          <h5>
-            Пакет персональных тренировок
-          </h5>
-          <a>
-            Индивидуальная работа тренера с посетителем клуба, с учётом его целей и возможных ограничений.
-          </a>
-          <form>
-            <button>#18 занятий</button>
-            <button>#6 месяцев</button>
-            <button>#мастер</button>
-          </form>
-        </div>
-      </li>
-      <li class='itemServices'>
-        <img src='../../../assets/img/group.jpg'>
-        <div class='descript'>
-          <h5>
-            Групповые занятия
-          </h5>
-          <a>
-            Абонемент на посещение одного спортивного клуба сети Fitness House в составе групповых секций в вече
-          </a>
-          <form>
-            <button>#36 занятий</button>
-            <button>#1 год</button>
-            <button>#вечер</button>
-          </form>
-        </div>
-      </li>
-      <li class='itemServices'>
-        <img src='../../../assets/img/masterClass.jpeg'>
-        <div class='descript'>
-          <h5>
-            Мастер класс
-          </h5>
-          <a>
-            Посещение одного мастер-класса по авторской методике инструктора в одном из клубов сети Fitness House
-          </a>
-          <form>
-            <button>#разовое посещение</button>
-            <button>#1 месяц</button>
-            <button>#профи</button>
+            <button v-for='label in item.properties'>#{{ label.value }}</button>
           </form>
         </div>
       </li>
@@ -106,6 +25,11 @@ export default {
     return {
     };
   },
+  computed: {
+    listServices() {
+      return this.$store.state.commonArray;
+    }
+  }
 };
 </script>
 

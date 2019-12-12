@@ -12,6 +12,14 @@ export default {
   components: {
     MainPage,
   },
+  methods: {
+    initialLoad() {
+      this.$store.dispatch('initialLoad');
+    }
+  },
+  created() {
+    this.initialLoad();
+  },
 };
 </script>
 
