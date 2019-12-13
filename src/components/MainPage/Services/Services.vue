@@ -1,33 +1,27 @@
 <template>
   <div class='main' @click="showSubMenu('закрыть фильтр')">
-    <ul>
-      <li class='itemServices' v-for='item in listServices'>
-        <img :src='item.url'>
-        <div class='descript'>
-          <h5>
-            {{ item.title }}
-          </h5>
-          <a>
-            {{ item.description }}
-          </a>
-          <form>
-            <button v-for='label in item.properties'>#{{ label.value }}</button>
-          </form>
-        </div>
-      </li>
-    </ul>
+    <transition>
+      <component :is='view'></component>
+    </transition>
   </div>
 </template>
 
 <script>
+import Main from './Main/Main.vue';
+import FilterResult from './FilterResult/FilterResult.vue';
+
 export default {
+  components: {
+    Main,
+    FilterResult,
+  },
   data() {
     return {
     };
   },
   computed: {
-    listServices() {
-      return this.$store.state.commonArray;
+    view() {
+      return this.$store.state.view;
     }
   },
   methods: {
@@ -139,7 +133,7 @@ export default {
     }
     .itemServices:nth-child(4),
     .itemServices:nth-child(5),
-    .itemServices:last-child{
+    .itemServices:nth-child(6){
       margin-top: 27px;
     }
     .itemServices:hover{
@@ -158,7 +152,7 @@ export default {
       .itemServices:nth-child(3),
       .itemServices:nth-child(4),
       .itemServices:nth-child(5),
-      .itemServices:last-child{
+      .itemServices:nth-child(6){
         margin-top: 27px;
       }
     }
@@ -171,7 +165,7 @@ export default {
       .itemServices:nth-child(3),
       .itemServices:nth-child(4),
       .itemServices:nth-child(5),
-      .itemServices:last-child{
+      .itemServices:nth-child(6){
         margin-top: 27px;
       }
       .itemServices:hover{
@@ -222,11 +216,7 @@ export default {
           }
         }
       }
-      .itemServices:nth-child(2),
-      .itemServices:nth-child(3),
-      .itemServices:nth-child(4),
-      .itemServices:nth-child(5),
-      .itemServices:last-child{
+      .itemServices:not(:first-child){
         margin-top: 27px;
       }
     }
@@ -265,11 +255,7 @@ export default {
           }
         }
       }
-      .itemServices:nth-child(2),
-      .itemServices:nth-child(3),
-      .itemServices:nth-child(4),
-      .itemServices:nth-child(5),
-      .itemServices:last-child{
+      .itemServices:not(:first-child){
         margin-top: 27px;
       }
       .itemServices:hover{

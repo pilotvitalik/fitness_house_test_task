@@ -58,4 +58,23 @@ export default{
     background: @itemSelect;
   }
 }
+@media(min-width: 641px) and (max-width: 768px){
+  .subMenu{
+    width: 248px;
+  }
+}
+@media(max-width: 640px){
+  .subMenu{
+    width: 100%;
+    li{
+      display: inline-block;
+      width: 100%;
+      height: 30px;
+      padding-left: 0;
+      font-size: 13px;
+      line-height: 30px;
+      text-align: center;
+    }
+  }
+}
 </style>

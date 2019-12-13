@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
     api: 'https://fitnesshouse-ba47f.firebaseio.com/services.json',
+    view: 'Main',
     // cards
     listServices: '',
     listImages: [],
@@ -19,6 +20,10 @@ export const store = new Vuex.Store({
     commonArray: '',
     // filter
     categories: [],  // name array of categories
+    // result filters
+    result: [],
+    filter: [], /// all include categories
+    resultCommonArray: [],
   },
   mutations: {
     // Receive services.json
@@ -72,7 +77,7 @@ export const store = new Vuex.Store({
           }
         })
       })
-      state.commonArray = state.listServices
+      state.commonArray = state.listServices;
     },
     // create list of categories filter
     createCatFilter: (state) => {
@@ -91,6 +96,7 @@ export const store = new Vuex.Store({
       categories = categories.map((item) => {
         return {
           isShow: false,
+          isUnder: false,
           title: item,
           value: [],
         }
@@ -110,9 +116,17 @@ export const store = new Vuex.Store({
           })
         })
       })
+      state.result = state.categories.map((item) => {
+        return {
+          name: item.title,
+          value: '',
+        }
+      });
     },
     // show sub menu filters
     showSubMenu: (state, payload) => {
+      let windowWidth = document.documentElement.clientWidth;
+      let catBtn = document.querySelectorAll('.item');
       let arr = '';
       arr = state.categories.map((item) => {
         if (item.title === payload){
@@ -133,6 +147,60 @@ export const store = new Vuex.Store({
             }
         })
       })
+      let obj = {};
+      state.commonArray.forEach((item) => {
+        item.properties.forEach((subItem) => {
+          if (subItem.value === payload) {
+            obj.name = subItem.title;
+            obj.value = payload;
+          }
+          if (subItem.title === payload) {
+            obj.name = subItem.title;
+            obj.value = '';
+          }
+        })
+      })
+      console.log(obj)
+      let tmpView = []
+      state.result.forEach((item) => {
+        if (item.name === obj.name) {
+          item.value = obj.value;
+        }
+        if (item.value.length > 0) {
+          tmpView.push(true);
+        } else {
+          tmpView.push(false);
+        } 
+      })
+      let statusValue = [];
+      for (let str of tmpView) {
+        if (!statusValue.includes(str)) {
+          statusValue.push(str);
+        }
+      }
+      if (statusValue.length > 1){
+        state.view = 'FilterResult';
+      } else {
+        state.view = 'Main';
+      }
+      state.filter = []; 
+      state.resultCommonArray = [];
+      state.commonArray.forEach((item) => {
+        item.properties.forEach((subItem) => {
+          state.result.forEach((val) => {
+            if (subItem.value === val.value) {
+              state.filter.push(item)
+            }
+          })
+        })
+      })  
+      console.log(state.result)
+      for (let str of state.filter) {
+          if (!state.resultCommonArray.includes(str)) {
+            state.resultCommonArray.push(str);
+          }
+        }
+        console.log(state.resultCommonArray)
     }
   },
   actions: {

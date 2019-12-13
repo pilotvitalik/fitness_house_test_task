@@ -47,7 +47,7 @@ export default {
 @back: #fff;
 
 .SubMenu-enter-active {
-  transition: all .3s ease;
+  transition: all .8s ease;
 }
 .SubMenu-leave-active {
   transition: all .8s ease;
@@ -80,7 +80,6 @@ export default {
     border-radius: 4px;
     background: @itemColor;
     color: @itemColorText;
-    z-index: 2;
     p{
       display: inline-block;
       width: 80%;
@@ -114,7 +113,7 @@ export default {
         margin-top: -4px;
         border: solid @itemColorText;
         border-width: 0 1px 1px 0;
-        transform: rotate(43deg);
+        transform: rotate(44deg);
       }
     }
     &>button:hover{
@@ -137,6 +136,9 @@ export default {
 }
 .displayBtn{
   background: @back !important;
+}
+.under{
+  z-index: -1 !important;
 }
 @media(min-width: 1248px) and (max-width: 1260px){
   .listItems{
@@ -208,11 +210,11 @@ export default {
     &>.item{
       width: 250px;
       p{
-        width: 100%;
+        width: 100-8.7%;
         padding-left: 0;
         text-align: center;
       }
-      span{
+      button{
         display: none;
       }
     }
@@ -253,7 +255,7 @@ export default {
         padding-left: 0;
         text-align: center;
       }
-      span{
+      button{
         display: none;
       }
     }
