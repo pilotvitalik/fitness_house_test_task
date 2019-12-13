@@ -1,5 +1,5 @@
 <template>
-  <div class='header'>
+  <div class='header' @click="showSubMenu('закрыть фильтр')">
     <nav>
       <h2>Fitness House Market</h2>
       <div class='box'>
@@ -18,6 +18,11 @@ export default {
       request: {
       },
     };
+  },
+  methods: {
+    showSubMenu(close){
+      this.$store.dispatch('showSubMenu', close);
+    }
   },
 };
 </script>

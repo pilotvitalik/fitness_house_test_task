@@ -1,6 +1,6 @@
 <template>
   <ul class='subMenu'>
-    <li v-for='subCat in value'>{{subCat}}</li>
+    <li v-for='subCat in value' @click='changeSubMenu(subCat)'>{{subCat}}</li>
   </ul>
 </template>
 
@@ -11,6 +11,11 @@ export default{
     return{
     };
   },
+  methods: {
+    changeSubMenu(subCat) {
+      this.$store.dispatch('changeSubMenu', subCat);
+    }
+  }
 };
 </script>
 

@@ -113,7 +113,6 @@ export const store = new Vuex.Store({
     },
     // show sub menu filters
     showSubMenu: (state, payload) => {
-      console.log(payload)
       let arr = '';
       arr = state.categories.map((item) => {
         if (item.title === payload){
@@ -123,15 +122,18 @@ export const store = new Vuex.Store({
         }
       })
     },
-    test: (state) => {
-      console.log('Hello')
-      /*let arr = '';
+    // change title of items filter
+    changeSubMenu: (state, payload) => {
+      let arr = '';
       arr = state.categories.map((item) => {
-        if (item.title === payload){
-          item.isShow = !item.isShow;
-        }
-      })*/
-    },
+        item.value.forEach((subItem) => {
+          if (subItem === payload){
+            item.title = payload;
+            item.isShow = !item.isShow;
+            }
+        })
+      })
+    }
   },
   actions: {
     initialLoad: ({ commit, state }) => {
@@ -180,8 +182,9 @@ export const store = new Vuex.Store({
     showSubMenu: ({ commit }, payload) => {
       commit('showSubMenu', payload);
     },
-    test: ({ commit }) => {
-      commit('test');
-    },
+    // change title of items filter
+    changeSubMenu: ({commit}, payload) => {
+      commit('changeSubMenu', payload);
+    }
   }
 })

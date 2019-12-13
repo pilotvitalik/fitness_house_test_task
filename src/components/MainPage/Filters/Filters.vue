@@ -1,11 +1,11 @@
 <template>
   <ul class='listItems'>
-      <li class='item' v-for='cat in filters'>
+      <li class='item' v-for='cat in filters' :class="{display: cat.isShow}">
         <p class='btn' @click='showSubMenu(cat.title)'>{{cat.title}}</p>
         <transition name='SubMenu'>
           <Submenu :value='cat.value' v-if='cat.isShow'/>
         </transition>
-        <button @click='showSubMenu(cat.title)'>
+        <button @click='showSubMenu(cat.title)' :class="{displayBtn: cat.isShow}">
           <span></span>
         </button>
       </li>
@@ -132,7 +132,11 @@ export default {
   }
 }
 .display{
-  display: flex;
+  outline: 1px solid @borderSubMenu !important;
+  background: @back !important;
+}
+.displayBtn{
+  background: @back !important;
 }
 @media(min-width: 1248px) and (max-width: 1260px){
   .listItems{
